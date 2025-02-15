@@ -37,7 +37,7 @@ class ContentGenerator:
                 model="DeepSeek-R1",
                 messages=[{"role": "user", "content": f'{prompt}. Only return post text, without quotation marks.'}],
                 temperature=0.7,
-                max_tokens=280
+                max_tokens=2800
             )
 
             raw_output = response.choices[0].message.content.strip()
