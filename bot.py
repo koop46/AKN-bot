@@ -36,7 +36,7 @@ class ContentGenerator:
             response = self.llm_client.chat.completions.create(
                 model="DeepSeek-R1",
                 messages=[{"role": "user", "content": f'{prompt}. Only return post text, without quotation marks.'}],
-                temperature=0.3,
+                temperature=0.7,
                 max_tokens=2800
             )
 
