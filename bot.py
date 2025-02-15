@@ -2,33 +2,32 @@ import tweepy
 import schedule
 import time
 import openai
-import os
-from dotenv import load_dotenv
+import yaml
 
-load_dotenv()
+CREDS = yaml.load(open("credentials.yml"), Loader=yaml.FullLoader)
 
-# Read Akash Info from file once
 with open("Akash_info.txt", "r") as file:
     AKASH_INFO = file.read()
 
-# API Credentials
-AKASH_API_KEY = os.getenv("AKASH_KEY")  
-CREDS = {
-    "consumer_key": os.getenv("API_KEY"),
-    "consumer_secret": os.getenv("API_SECRET"),
-    "access_token": os.getenv("ACCESS_TOKEN"),
-    "access_token_secret": os.getenv("ACCESS_TOKEN_SECRET")
-}
+
+### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### 
+### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### 
+### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### 
+
 
 class ContentGenerator:
-    def __init__(self):
+
+    def __init__(self, CREDS):
         self.llm_client = openai.OpenAI(
-            api_key=AKASH_API_KEY,
+            api_key=CREDS["AKASH_KEY"],
             base_url="https://chatapi.akash.network/api/v1"
         )
     
+
     def generate_tweet(self, theme=AKASH_INFO):
-        prompt = f"""Generate a new Twitter post from this texr: {theme}. 
+        
+        prompt = f"""Generate a new Twitter post from this texr: {theme}. Randomly pick any fact that might be interesting.
+        Try to keep a excited but professional tone as if you know you're going to become rich.
         The post should be under 280 characters. Always include "$SPICE" and "$AKT" tickers at the end. 
         No Hashtags of any kind. No discussion about price or value"""
 
@@ -50,29 +49,42 @@ class ContentGenerator:
 
 
 class TwitterClient:
-    def __init__(self):
-        self.client = tweepy.Client(
-            consumer_key=CREDS["consumer_key"], 
-            consumer_secret=CREDS["consumer_secret"],
-            access_token=CREDS["access_token"], 
-            access_token_secret=CREDS["access_token_secret"]
-        )
+    
+    def __init__(self, CREDS):
+        
+        client_creds = {
+        "consumer_key": CREDS["consumer_key"],
+        "consumer_secret": CREDS["consumer_secret"],
+        "access_token": CREDS["access_token"],
+        "access_token_secret": CREDS["access_token_secret"]}
 
-    def post_tweet(self, text):
+        self.v2 = tweepy.API(tweepy.OAuth1UserHandler(**client_creds))
+        self.v1 = tweepy.Client(**client_creds)
+
+
+    def post_tweet(self, text, media=None):
         try:
-            self.client.create_tweet(text=text)
+            if media:
+                # Upload media and post tweet with both text and media
+                media_obj = self.v2.media_upload(filename=media)
+                self.v1.create_tweet(text=text, media_ids=[media_obj.media_id])
+            else:
+                # Post text-only tweet
+                self.v1.create_tweet(text=text)
+                
+            print(f"Posted: {text}" + (f" with media: {media}" if media else ""))
             
-            print(f"Posted: {text}")
         except tweepy.TweepyException as e:
             print(f"Twitter error: {e}")
 
-generator = ContentGenerator()
-client = TwitterClient()
+
+generator = ContentGenerator(CREDS)
+client = TwitterClient(CREDS)
 
 def daily_post():
     
     tweet = generator.generate_tweet()
-    client.post_tweet(tweet)
+    client.post_tweet(tweet, "spice_art.png")
     
  
 # # # Schedule Setup
@@ -85,3 +97,4 @@ def daily_post():
 #     time.sleep(60)
 
 daily_post()
+
