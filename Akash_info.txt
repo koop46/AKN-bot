@@ -1,0 +1,69 @@
+Info about $SPICE:
+The SPICE token is a vibrant memecoin launched on the Osmosis platform within the Cosmos ecosystem, specifically tailored for the Akash Network community. It embraces decentralization and community-driven innovation, aiming to support the Akash community by utilizing liquidity pool proceeds to buy and stake Akash tokens. The staking revenue is then used to buy back and burn SPICE tokens, creating a synergistic relationship between Akash and SPICE.
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+Info about $AKT and Akash Network:
+Overview
+Akash Network was founded in 2015 by Greg Osuri and Adam Bozanich and was created under Overclock Labs. Built on the Cosmos SDK and employing a Proof-of-Stake consensus mechanism, Akash Network serves as a decentralized cloud computing marketplace. It connects providers and consumers of cloud resources, offering an affordable, secure, and transparent alternative to conventional cloud providers like Amazon Web Services (AWS), Microsoft Azure, and Google Cloud Platform (GCP). The network operates by enabling providers to lease out their unused computing capacity to consumers, who, in turn, deploy and run applications using these resources. All transactions within the Akash Network are secured by the AKT token, playing a dual role in paying for cloud resources and incentivizing providers to actively participate in the network. [1][3][4][15]
+
+History
+Upon the launch of Akash Network's mainnet 1.0 in September 2020, 100,000,000 pre-mined AKT tokens were available, with a maximum supply cap of 388,539,008 AKT. These tokens were distributed among investors, the Akash Network Foundation, and the project team. A public sale of 1,800,000 AKT was also conducted. [12]
+In March 2021, Akash Network transitioned from testnet phases to a live, public release with the launch of mainnet 2. 0. During the testnet phases, numerous developers deployed applications on its decentralized cloud infrastructure to test the network capabilities. Akash introduced the Supermini, a miniature supercomputer designed for end users to become cloud providers, earning passive income in AKT tokens. This innovative approach enabled users to participate in cloud computing from their homes without the need for data centers. [12]
+In November 2022, Akash upgraded to Mainnet 4, introducing features such as IP leases that allow tenants to request publicly routable IP addresses for their services. This upgrade also implemented Cosmos IBC3, enabling transactions between different chains and enhancing Akash Network's integration with the Cosmos ecosystem. Akash also implemented Interchain Accounts (ICA), which provided access to interchain composability, aiming to improve user experience. [13]
+In August 2023, the sixth mainnet upgrade was made, introducing GPU support which enabled providers to offer GPU resources to deployers globally. Both providers and deployers gained access to USDC settlement, enabling value capture through Take Rates on both USDC and AKT. This upgrade also facilitated the creation of an open-source marketplace for high-density GPUs. Initially focused on NVIDIA GPUs, the network's plans included extending support to other manufacturers like AMD and others.[14]
+
+$AKT Token
+AKT token is the native utility token of the Akash Network which is used to facilitate transactions and operations within the Akash ecosystem. AKT tokens are staked by network providers as collateral, ensuring the integrity and reliability of services offered. AKT is used as the primary means to govern the network, secure the blockchain, incentivize participants, and provide a default mechanism to store and exchange value. It also acts as an incentive, rewarding active participants, including validators and developers. [11]
+
+AKT provides a default mechanism to store and exchange value and acts as a reserve currency in Cosmos’ multi-currency and multi-chain ecosystem. The frequency of new block proposals by validators is dependent on the number of AKTs staked towards such validators. In compensation for staking or bonding to a validator, holders of the AKT token gain eligibility for block rewards which are paid out in AKT and also a portion of the transaction and service fees, this can be paid out in any of the whitelisted tokens. [4][6]
+
+AKT 2.0
+AKT 2.0 is an ongoing effort to bring new token features and utility to Akash and AKT tokens. These features generate value for the network by funding critical incentive pools supporting network growth and development, a wide range of currency options for lease settlement, and more. The main features of AKT 2.0 are the take-and-make fees, stable payment and settlement, incentive distribution pool, provider subsidies, and public goods fund.[11]
+
+Tokenomics
+Akash Network is built on the platform of the Cosmos hub and runs on a sovereign proof-of-stake. The AKT operates as the reserve currency in Akash’s multi-chain ecosystem, simultaneously validating the economic security of the public chain through staking. The Akash's distribution includes a 100,000,000 genesis supply and a 388,539,008 AKT max supply. [8]
+
+Main Functions
+IP Leases
+Tenants have the option to request publicly routable IP addresses for their services. The ordering of IP Leases as part of a deployment introduces new opportunities. This feature provides static public IP addresses and static port mappings, allowing the use of all ports within the 1-65535 range. The retention of IP leases is tied to the deployment; closing the lease results in the loss of the reserved IP address. IP leases are valid only for inbound communications, while outbound communication utilizes a shared IP address. Migration to another deployment is possible, preserving the reserved address. However, there is no means to maintain or migrate the leased IP address if a deployment is closed and moved to another provider. Availability is limited to specific providers using technologies such as keepalive-vip. [16]
+
+Persistent Storage
+Persistent storage allows deployment data to persist throughout the lease. The provider creates a volume on disk, mounted into the deployment, mimicking container persistent storage. Storage persistence is tied to the lease and is lost during migration or closure. Shared volumes are not supported, with each service using a single profile to create unique volumes. Only one persistent volume is allowed per service definition in the Akash SDL. Consideration of network latency is necessary for applications with heavy IOPS requirements. [17]
+
+Authorized Spend
+Authorized Spend allows users to authorize spending a set number of tokens from a source wallet to a designated, funded destination wallet. This functionality is restricted to Akash deployment activities, ensuring tokens are exclusively used for deployment purposes. It facilitates collaborative deployment work without relying on large shared wallets, addressing security concerns. [18]
+
+Fractional uAKT
+Fractional uAKT serves the purpose of eliminating the implicit minimum cost of deployment. It allows for more accurate pricing adjustments for resource consumption, addressing the issue of light workloads being more expensive than necessary, especially with token price increases. [19]
+
+Deployment Shell Access
+Deployment Shell Access enhances the management of deployed Akash containers by enabling the execution of commands within running Linux containers/Akash deployments. It provides access to the CLI/shell of a running Linux container/Akash deployment and allows remote copying of files from running Linux containers/Akash deployments to local instances for inspection. [20]
+
+Deployment HTTP Options
+Deployment HTTP Options augment Akash deployment SDL services stanza definitions with "http_options" for detailed HTTP endpoint parameter specifications. Optional parameters include max_body_size, read_timeout, send_timeout, next_cases, next_tries, and next_timeout. Hostname Migration addresses challenges when updating a deployment while retaining an active DNS hostname. It allows simple migration to new deployments without interrupting services. [21]
+
+Key Features
+Decentralization: Akash Network, operating on the Cosmos network, ensures decentralization, enhancing resilience and security.
+Global Marketplace: The platform functions as a marketplace where computing resource providers list their available resources, providing consumers with a dynamic ecosystem for efficient computing power allocation.
+Containerization: Akash primarily utilizes containerization technology, specifically Docker containers, for packaging and deploying applications. This approach simplifies application management and deployment for developers.
+Security: The network employs cryptographic and blockchain-based security measures to protect transactions and data integrity, ensuring a high level of security for users.
+Economic Incentives: Utilizing its native cryptocurrency, AKT, for transactions, Akash incentivizes users to provide computing resources, contributing to a stable and efficient marketplace.
+Open Source: Akash Network operates as an open-source project, actively encouraging community participation and development. This open nature fosters innovation and transparency in the platform's evolution.
+Cost-Effective Cloud Computing: Akash Network provides a cost-effective and decentralized alternative to traditional cloud computing services. Users can access global computing resources at competitive prices compared to centralized cloud providers.[6]
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+For 2025: Hyperscaling Akash 
+As Akash stands at #1 in terms of on-chain fees, looking closely, on-chain suggests Akash's user fees have been growing in correlation with GPU supply fairly well. It's clear that we need to scale GPU supply while maintaining utilization rate and improving fee per GPU.
+The key metrics providers look for are good utilization rates (how much of their capacity they can lease) and fees per GPU. At 70% utilization, Akash is very attractive for providers, and the data clearly indicates that utilization rates and fees per GPU have been on the upswing over the past 12 months, product features (improve convenience) and incentives (reduce cost) we're ready to accelerate growth.
+
+Incentives are extremely hard to get right. Good incentives can accelerate growth, whereas poor incentives can destroy the health of the network. Fortunately, through a series of incentive pilots (PIPs), we learned quite a bit on how to properly structure incentives.
+a) Utilization Guarantee Incentives: Most DePINs simply pay for compute provided; this is not only inorganic but creates extreme waste with low utilization. Instead, if we can guarantee utilization (through discounts for early tenants, e.g.), we have a much more optimized system. Most providers are happy with 80% utilization at competitive prices (e.g., $2.30/hr for H200s). Any further increase makes it a lot more attractive to be on Akash.
+b) Smart Financing: Several AI companies approach us wanting to own their hardware for better price-performance, privacy, and availability but don't necessarily have the capital ready for an edge datacenter. We recently laid out a model where one could get a 40 H200 GPU Edge cluster for free by providing on Akash. Edge clusters can provide privacy and improve decentralization. Overclock Labs is in conversation with several financiers, both in the centralized and decentralized lending space, to structure a product.
+c) Improve Provider Product Suite: Our product focus has primarily been on demand for good reason. Now, as Akash's demand side is maturing and growing in a predictable manner, we have made additional investments into improving our provider product suite. Next week, we'll be launching Provider Console 1.0 as the first step to reducing friction for providers to lease their supply on Akash, applying all our learnings with generating demand.
+d) Demand Generation for Providers: There are currently 11,000 professional datacenters (1 MW+) and around 7 million edge datacenters in the world. Most of the edge datacenters are semi-professional and are great candidates for Akash. We will continue to make investments in aggressively reaching these providers with an omni-channel approach.
+e) Improve Per-GPU Fees: Akash has so far been focused primarily on resource leasing while building primitives to transition to a services economy. The daily average fee per GPU (leased) in January 2025 was approximately $20, which is impressive for resource-only leasing but can significantly improve when value-added services are provided on the same GPU. Services like Agent Launch pads, Inference Services, and Vector database hosting not only increase Akash's dominance with AI developers but also increase fee per GPU, thereby increasing the bottom line revenue. In 2025, we will release the platform for Services economy on Akash, which will be the first of its kind and cause a disruption bigger than that we had when we launched the GPU marketplace in 2023, kickstarting a whole industry.
+Strap in, cause we're going to the moon.
+
+
