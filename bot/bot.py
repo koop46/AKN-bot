@@ -26,7 +26,7 @@ class ContentGenerator:
         )
     
 
-    def generate_tweet(self, theme=AKASH_INFO):
+    def generate_tweet(self, model_choice, theme=AKASH_INFO):
 #Developers building on decentralized clouds need persistent data storage that survives migrations. Akash Network�s Persistent Storage locks deployment data through lease cycles�while $SPICE fuels $AKT�s staking engine to scale network capacity. Build relentlessly. $SPICE $AKT
         prompt = f"""
         Generate a new Twitter post from this texr: {theme}. Randomly pick any fact that might be interesting.
@@ -41,14 +41,16 @@ class ContentGenerator:
 
         try:
             response = self.llm_client.chat.completions.create(
-                model="DeepSeek-R1",
+                model=model_choice,
                 messages=[{"role": "user", "content": f'{prompt}. Only return post text, without quotation marks.'}],
                 temperature=0.7,
                 max_tokens=2800
             )
 
-            raw_output = response.choices[0].message.content.strip()
-            _, output = raw_output.split("</think>\n") 
+            output = response.choices[0].message.content.strip()
+
+            if model_choice == "DeepSeek-R1":
+                _, output = output.split("</think>\n") 
             
             with open("old_posts.txt", "a") as file:
                 file.write(f"\n{output}")
@@ -96,9 +98,17 @@ generator = ContentGenerator(CREDS)
 client = TwitterClient(CREDS)
 
 def daily_post():
-    
-    tweet = generator.generate_tweet()
-    client.post_tweet(tweet, "spice_art.png")
+    all_models = ["DeepSeek-R1", "Meta-Llama-3-3-70B-Instruct", "nvidia-Llama-3-1-Nemotron-70B-Instruct-HF"]
+
+#    tweet = generator.generate_tweet(all_models[1])
+    for model in all_models:
+        tweet = generator.generate_tweet(model)
+
+        if tweet != None:
+            break
+    print(tweet)
+
+#    client.post_tweet(tweet, "spice_art.png")
     
  
 # # # Schedule Setup
