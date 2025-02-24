@@ -28,25 +28,48 @@ class ContentGenerator:
     
 
     def generate_tweet(self, model_choice, theme=AKASH_INFO):
+        random_line = random.randint(10_000, 55_000)
 #Developers building on decentralized clouds need persistent data storage that survives migrations. Akash Network�s Persistent Storage locks deployment data through lease cycles�while $SPICE fuels $AKT�s staking engine to scale network capacity. Build relentlessly. $SPICE $AKT
+
         prompt = f"""
-        Generate a new Twitter post from this text: {theme}. Randomly pick any fact that might be interesting.
-        But it can't be too similar to theses posts: {old_posts}.
-        Include people's need when you craft your posts and suggest 1 way in which Akash Network can help fullfilling that need. 
-        And make sure any claim is verifiable.
-        
-        Try to keep a excited but professional and respectful tone as if you know you're going to become rich.
-        The post should be under 280 characters. Always include "$SPICE" and "$AKT" tickers at the end.
-        Also include only 2 of the following hastags, and preferably 2 tags that go together with post: #AI, #ArtificialIntelligence,
-        #MachineLearning, #DataScience, #DeepLearning, #AIArt, #Python, #BigData, #NLP, #GenerativeAI, #Robotics, #Programming
-        #Coding, #Developers, #WebDev, #100DaysOfCode, #SoftwareEngineering, #CodeNewbie, #DevOps, #JavaScript, #Tech .
-        No Hashtags of any kind. No discussion about price or value.
+        Generate a Twitter post based on following information: {theme}. 
+The post must feature:  
+1. Features 1 UNIQUE technical fact/statistic (verified by credible sources)  
+2. Highlights a specific user need/pain point in tech/AI/development fields  
+3. Shows how Akash Network's decentralized cloud uniquely solves this  
+4. Includes $SPICE and $AKT with 2 synergistic hashtags from:  
+[AI/ML cluster] OR [Dev/Engineering cluster] OR [Emerging Tech cluster] 
+5. Start each post with a unique phrase that you didn't start with in older posts like: {old_posts} 
+I suggest something from {AKASH_INFO[random_line:random_line+200]} that you haven't already posted about.
+
+AVOID:  
+- Using same opening phrase as in older posts, for reference check: {old_posts}  
+- Using same first word in your new post that you have already used in older posts
+- Using any derivative of first word in your new post that you have already used in older posts
+- Price speculation/ROI claims  
+
+TONE: Visionary architect revealing blueprints for next-gen tech infrastructure  
+
+FORMULA:  
+[Attention-grabbing fact or common values] + [User-centric problem statement] + [Akash-powered solution] + [Future-looking call to action] + $SPICE $AKT + [2 focused hashtags]  
+
+Verify technical accuracy before finalizing.
+Don't use same first word or any derivative of first word that you have already used in any other old post.
+Don't use same first word or any derivative of first word that you have already used in any other old post.
+Don't use same first word or any derivative of first word that you have already used in any other old post.
+Don't use same first word or any derivative of first word that you have already used in any other old post.
+Don't use same first word or any derivative of first word that you have already used in any other old post.
+Don't use same first word or any derivative of first word that you have already used in any other old post.
+Don't use same first word or any derivative of first word that you have already used in any other old post.
+Don't use same first word or any derivative of first word that you have already used in any other old post.
+Don't use same first word or any derivative of first word that you have already used in any other old post.
+
         """
 
         try:
             response = self.llm_client.chat.completions.create(
                 model=model_choice,
-                messages=[{"role": "user", "content": f"{prompt}. Only return post text, without quotation marks. Don't repeat the same phrases and remember to pick a variety of topics to post about"}],
+                messages=[{"role": "user", "content": f"{prompt}. Only return answer without quotations and vary in theme/topic"}],
                 temperature=0.7,
                 max_tokens=2800
             )
@@ -59,7 +82,7 @@ class ContentGenerator:
             with open("old_posts.txt", "a") as file:
                 file.write(f"\n{output}")
             
-            
+         #   print("random line", AKASH_INFO[random_line:random_line+2000])
             return output
 
         except Exception as e:
@@ -111,7 +134,7 @@ def daily_post():
         if tweet != None:
             break
     print(tweet)
-
+    
     client.post_tweet(tweet)
     
 
