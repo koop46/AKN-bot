@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  bot:
+    ports:
+    - 2005:2005
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: akn_bot
+    environment:
+      - PORT=2005
+    restart: unless-stopped
+
