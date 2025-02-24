@@ -3,10 +3,11 @@ import schedule
 import time
 import openai
 import yaml
+import random
 
 CREDS = yaml.load(open("credentials.yml"), Loader=yaml.FullLoader)
 
-with open("Akash_info.txt", "r") as file:
+with open("Akash_info.txt", "r", encoding="utf-8") as file:
     AKASH_INFO = file.read()
 
 with open("old_posts.txt", "r") as file:
@@ -29,20 +30,23 @@ class ContentGenerator:
     def generate_tweet(self, model_choice, theme=AKASH_INFO):
 #Developers building on decentralized clouds need persistent data storage that survives migrations. Akash Network�s Persistent Storage locks deployment data through lease cycles�while $SPICE fuels $AKT�s staking engine to scale network capacity. Build relentlessly. $SPICE $AKT
         prompt = f"""
-        Generate a new Twitter post from this texr: {theme}. Randomly pick any fact that might be interesting.
-        But it has to be as disimilar to these posts as possible: {old_posts}.
+        Generate a new Twitter post from this text: {theme}. Randomly pick any fact that might be interesting.
+        But it can't be too similar to theses posts: {old_posts}.
         Include people's need when you craft your posts and suggest 1 way in which Akash Network can help fullfilling that need. 
         And make sure any claim is verifiable.
         
-        Try to keep a excited but professional tone as if you know you're going to become rich.
-        The post should be under 280 characters. Always include "$SPICE" and "$AKT" tickers at the end. 
-        No Hashtags of any kind. No discussion about price or value
+        Try to keep a excited but professional and respectful tone as if you know you're going to become rich.
+        The post should be under 280 characters. Always include "$SPICE" and "$AKT" tickers at the end.
+        Also include only 2 of the following hastags, and preferably 2 tags that go together with post: #AI, #ArtificialIntelligence,
+        #MachineLearning, #DataScience, #DeepLearning, #AIArt, #Python, #BigData, #NLP, #GenerativeAI, #Robotics, #Programming
+        #Coding, #Developers, #WebDev, #100DaysOfCode, #SoftwareEngineering, #CodeNewbie, #DevOps, #JavaScript, #Tech .
+        No Hashtags of any kind. No discussion about price or value.
         """
 
         try:
             response = self.llm_client.chat.completions.create(
                 model=model_choice,
-                messages=[{"role": "user", "content": f'{prompt}. Only return post text, without quotation marks.'}],
+                messages=[{"role": "user", "content": f"{prompt}. Only return post text, without quotation marks. Don't repeat the same phrases and remember to pick a variety of topics to post about"}],
                 temperature=0.7,
                 max_tokens=2800
             )
@@ -108,20 +112,35 @@ def daily_post():
             break
     print(tweet)
 
-#    client.post_tweet(tweet, "spice_art.png")
+    client.post_tweet(tweet)
     
- 
-# # # Schedule Setup
-# schedule.every().day.at("13:23").do(daily_post)
-# schedule.every().day.at("13:24").do(daily_post)
-# schedule.every().day.at("13:23").do(daily_post)
-# schedule.every().day.at("13:24").do(daily_post)
-# schedule.every().day.at("13:24").do(daily_post)
 
-# # # # Run Continuously
-# while True:
-#     schedule.run_pending()
-#     time.sleep(60)
+def generate_random_hours(n=5):
+    return [f"{random.randint(0, 23):02}:{random.randint(0, 59):02}" for _ in range(n)]
 
-daily_post()
+
+def schedule_daily_events():
+    schedule.clear()
+    random_hours = generate_random_hours()
+    print(random_hours)
+    for hour in random_hours:
+        schedule.every().day.at(hour).do(daily_post)
+
+
+
+
+# Schedule the random hour generation at midnight
+schedule.every().day.at("02:00").do(schedule_daily_events)
+
+# Initial setup
+schedule_daily_events()
+
+# Run Continuously
+while True:
+
+    schedule.run_pending()
+    print("Active!!!")
+    time.sleep(60)
+
+#daily_post()
 

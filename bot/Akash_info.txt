@@ -66,4 +66,531 @@ d) Demand Generation for Providers: There are currently 11,000 professional data
 e) Improve Per-GPU Fees: Akash has so far been focused primarily on resource leasing while building primitives to transition to a services economy. The daily average fee per GPU (leased) in January 2025 was approximately $20, which is impressive for resource-only leasing but can significantly improve when value-added services are provided on the same GPU. Services like Agent Launch pads, Inference Services, and Vector database hosting not only increase Akash's dominance with AI developers but also increase fee per GPU, thereby increasing the bottom line revenue. In 2025, we will release the platform for Services economy on Akash, which will be the first of its kind and cause a disruption bigger than that we had when we launched the GPU marketplace in 2023, kickstarting a whole industry.
 Strap in, cause we're going to the moon.
 
+--------------------------------------------------------------------------------------------------------------------------------
+
+Akash Network Product Strategy & Execution
+Summary
+Akash Network and its community are focussed on the long-term goal of building a viable decentralized alternative to the large centralized public clouds. In the short-term, the community is focused on the needs of a subset of public cloud users that we think are most easily accessible to it and building features that make those users successful on Akash Network.
+
+Users running nodes in public clouds, for proof-of-stake blockchains.
+Users hosting websites on public clouds or PaaS solutions (like vercel or netlify) that rely on public clouds, and;
+AI/ML application developers that tune a previously trained AI model and/ or run AI inference on public cloud infrastructure.
+
+Product Strategy
+Akash Network’s vision is to become a viable alternative to today’s centralized public cloud infrastructure, including supporting the largest web scale & enterprise applications that run on them.
+
+The success of Akash Network’s product and market efforts will be indicated by two main metrics:
+
+Growing active deployments (first time users and repeat users) on Akash Network of workloads that would otherwise run on centralized public cloud platforms.
+
+Building and nurturing a thriving developer community to drive product development with Community Groups.
+
+Akash Network has identified 2 primary themes and 3 secondary themes that will serve as guardrails to help prioritize features that help us achieve the above objectives. Any features or products we decide to build should generally align with furthering the above goals and fit within the themes identified below. While there will be use cases that don’t fit within these that Akash Network can and will be used for, we will NOT make a concerted effort to prioritize them when it comes to our product roadmap.
+
+Primary themes
+Cloud Parity: This is a very broad and lofty goal that will take several years to fully realize. In order to ensure that we are making progress towards it in a meaningful way, we identify a specific subset of use cases that we can satisfy in the short term (the second theme below) that today rely on public clouds for their needs.
+
+Path to Parity:
+
+Accessible Users & Use Cases: Use cases and user segments that we can reach most easily in the near term that are today dependent on public clouds. If done right, satisfying these use cases, automatically also moves the needle towards closing the gap towards “cloud parity”.
+
+Secondary themes
+These are themes that support the primary objectives
+
+Provider Success: Features that make provider onboarding, pricing, monitoring and management easy, so as to incentivize new providers to join Akash Network, thereby increasing the value that tenants deploying on Akash get.
+
+Operational Efficiency: Everything related to improving Akash Networks’ code base and mainnet upgrade process to enable software releases on a regular basis.
+
+Ecosystem Enablement: Features necessary to unlock partnerships with other web3 projects, that fill gaps in things needed to achieve the primary objectives.
+
+Cloud Parity
+Traditional cloud platforms’ (AWS, Azure and GCP) strategy has been focused on building the “core pieces” of infrastructure necessary to run a web scale application in production, before deciding to offer specialized services (big data, AI training models, IoT, blockchains etc). What does this mean specifically?
+
+The typical modern, cloud native, web application architecture (simplified) looks something like this:
+
+The big cloud providers provide services for every one of the elements shown above. Trying to build an equivalent offering for the services offered by the cloud providers today is going to be near impossible and isn’t even the right strategy for a team building with an open source community in a decentralized fashion. Instead, we’re better off focusing on just compute (for powering web servers, app servers, load balancers, db instances etc) and partnering with others for things like managed services. For example, for Object Storage AWS offers S3, Azure has “Blob storage” and GCP has “Cloud Storage”. There are also equivalent decentralized solutions to this like IPFS (filecoin) and StroJ. Our goal should be to ensure that it is easy enough for a user of Akash, to be able to utilize any of those solutions with Akash compute.
+
+The ecosystem of web 3 equivalents for various web2 cloud primitives and managed services is as shown in the below images. We already have some active partnership discussions with a few partners including StorJ, Fleek and ThirdWeb.
+
+The work to build out cloud parity with ecosystem partners will include:
+
+Maintaining a list of services (centralized or decentralized) that we see users commonly need (this is where focusing on specific use cases is important).
+Understanding and documenting integration points for both the decentralized and the centralized options.
+Building reference applications for how to build a web app that runs other services (redis, postgres, S3 etc) on Akash compute.
+Build features that enable High Availability (HA), Scalability and other foundational elements, required by users running production applications at scale in existing clouds before they consider migrating to Akash.
+Accessible Users & Use Cases
+Akash Network has identified the following 3 use cases and associated user segments that we think we are able to reach and that will drive growth in deployments significantly. Part of our work is to fully flesh out the product requirements for each of these use cases with representative users from the segments and offer them a way to migrate from centralized cloud providers to Akash Network.
+
+Node Deployments
+Akash Network sees strong interest and traction for node operators wanting to run on Akash. We intend to prioritize chains within the Cosmos ecosystem initially and look at other ecosystems (Ethereum, Solana, others) opportunistically. Our market strategy here is to follow a 3 step approach, in increasing technical difficulty:
+
+Phase1 - RPC Nodes: spinning up RPC nodes is a low lift for us and Console is optimized for this with templates.
+Phase2 - Validator Nodes for Testnets: Focusing on validators for testnets lets us be able to make progress without having all the reliability and high availability features.
+Phase3 - Validator Nodes for Mainnets: We have to provide some SLAs before we can attract this user group since there is the risk of people getting slashed if their node goes down.
+AI & ML Workloads
+AL/ ML applications represent a huge growth area for cloud services in the next decade and the demand for GPUs is going to skyrocket. Akash Network is poised to service this demand by connecting the available GPU capacity in various datacenters and mining operations. We intend to focus on Inference and some training (mostly for tuning a base mode) and not on base training.
+
+There will be a lot of work necessary to realize this, but some of the high level initiatives will include:
+
+GPU support on the Akash marketplace (Provider and Client/ SDL)
+Workflows for containerizing and running ML apps built in the most common languages and frameworks.
+Integration with ML datastores to provide easy access to training data sets.
+GPU inventory buildup
+Execution Framework
+Akash Network’s execution framework uses a community based development model that borrows a lot of the principles from the way the open source Kubernetes project operates . In general our execution framework, includes the following:
+
+Different groups of community members that work on projects that advance Akash Networks’ mission. This is documented in Community Groups
+
+A prioritized pipeline of ideas/ projects we would like built, bucketed by - themes. This is kept up to date on a regular (weekly/monthly) basis. This is outlined in the Projects List
+
+Documented places to discuss/ publish/ comment/ review/ approve the specifications for each projects listed in #1 above. This is outlined in Data Organization and Repositories
+
+States that a given project can be in. Outlined in Project States
+
+Meetings to regularly discuss prioritization of list of projects and meetings with individual project teams to make sure each project moves forward. Meetings page and notes will be documented in Github as noted in Data Organization and Repositories.
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+
+Roadmap 2025
+
+For quarter 1:
+
+- Automatic Escrow Top Up (Completed january 30th!)
+
+Motivation
+Akash users would like to have the option of having their escrow account automatically topped up from their wallets or accounts (in case of credit cards) so that it doesn’t run out of funds and close their deployments.
+
+Summary
+Implement a new UI setting in the existing settings page that allows users to enable or disable automatic top-ups for Akash Network deployments under custodial wallets via AuthZ deployment grants. https://github.com/akash-network/console/issues/412
+
+Implement a worker CLI handler that automatically adds funds (top-ups) to Akash Network deployments when they are low on balance. This ensures deployments continue to run without requiring users to manually monitor and replenish funds, improving the user experience. https://github.com/akash-network/console/issues/395
+
+
+- Akash Provider Console 1.0 (completed february 18th!)
+
+Motivation
+Make Akash Provider set up and management easy, with the goal of onboarding 100s of new providers.
+
+Summary
+Akash Provider Console will be a cloud based product that complements the Deployment Console (Akash Console). It’s primary objective will be to provide an easy way for new DC operators (and other compute providers) to onboard themselves (self-serve) on to Akash with little to no support from the Akash core team or community. This will include automatic set up of a Kubernetes cluster on user provided VMs and installation and configuration of Akash provider software on top of that Kubernetes cluster (including networking, attributes and pricing configuration). As a secondary objective, the Provider Console will give new and existing compute providers tools to manage their Akash providers better. This will include things like a dashboard that shows leases, earnings, resources and profitability as well as some tools to view and manage leases running on the provider and to maintain (update and upgrade things) the provider. Over time the provider console will add several quality of life features including observability tooling set up and reporting (metrics & logs), content moderation, notifications (from provider to tenants) and more.
+
+- Escrow Balance Alerts in Akash Console (Estimated to be completed february 28th)
+
+Motivation
+One of the primary issues users face with Akash is the unexpected termination of leases due to depleted escrow funds. Implementing an alerting and notification system for this problem gives users the tools to monitor and take actions to alleviate the problem and associated frustration.
+
+Summary
+Users of Akash Console will have the option of configuring a low escrow balance alert for any deployment within their account and optionally tieing the alert to a notification channel. The initial notification channel supported will be email with more notification channels added over time, based on customer/ user feedback. The alert configuration will allow the user to specify a name that will show up in tne notification email subject as well as notes in the body that will let them quickly identify which account and deployment the alert is associated with. In addition the user will have the option to specify a threshold (<, =, >) that will determine when the alert is triggered. Lastly the user will have a global view of all alerts configured in the account and will be able to perform certain actions from there like viewing the alert configuration, disabling or deleting it and viewing all the past events triggered from it.
+
+
+- Enhanced Read Performance Onchain Queries (estimated completed ferbuary 28th)
+
+Motivation
+Improve the read performance of the blockchain API by optimizing prefixes in x/stores based on object states.
+
+Summary
+Many Akash Network API clients (e.g., Console and provider service) query the blockchain to get specific information about leases, orders, and other objects.
+
+The current implementation uses a single unordered index per store, which creates challenges for clients when they need to query items of a specific state (e.g., active leases or open orders). Currently, the market store contains over 1.3M order records, and for the provider service to catch up at startup, it must iterate over all of them to filter out open orders. Specifying filters like state in the query is ineffective and, in fact, reduces performance due to how store keys are built.
+
+In the majority of cases, API clients are interested in objects that are in any state other than closed (i.e., active, open, paused, etc.). Therefore, it is feasible to split a single store into multiple stores, each containing objects of a specific state.
+
+Certain stores (x/market, x/authz) will also benefit from reverse indexes to improve reading performance. For example, with x/market, adding reverse indexes for bids and leases will greatly improve query performance when clients look for bids/leases by provider.
+
+Implementation
+The state of the object will be considered as part of the store prefix and will be prepended to the store key. This approach has the following pros and cons:
+
+Pros:
+reduces the number of items to iterate over when querying for objects of a certain state
+retains pagination logic
+Cons:
+Finding a specific object by ID will be O(N), where N is the number of states a particular object can be in
+Cost of certain transactions will likely increase due to the necessity of checking objects via multiple prefixes
+
+
+- Cosmos SDK v0.47 Migration (estimated completion: 15th of march)
+
+Motivation
+Akash Network has been live for almost 4 years, and we have made incredible strides in decentralizing development, coordination, and funding.
+
+As proposed in AKT 2.0, which received overwhelming support from the community, we proposed formally funding technical Research, Development, and Support done by the Akash Core Team and administered by Overclock Labs. As bolstered by proposals 211, 240, and 241, the Community Pool will continue to be well-funded as Akash Network accelerates its development.
+
+Any unused funds will be returned to the community as with all previous funding proposals.
+
+Introduction
+Akash Network launched in 2020 and has experienced explosive growth over the last few years, partly due to being open-sourced fully in late 2023. Today, Akash Network organization has over 350 contributors building across 49 repositories coordinated and led by the Overclock Labs team through 11 special interest groups, working groups, and user groups. This achievement is monumental and should be celebrated, especially as we focus on the actual output: 2 major acquisitions, multiple web2 and web3 AI platform partnerships, university research collaborations, 11 network upgrades, and nearly 100 completed issues and over 200 discussions spanning more than four years.
+
+Challenge
+With a growing codebase driven by an ever-larger feature set, Akash Network is more complex than ever and this complexity will only increase over time. As the community of contributors continues to grow, coordination becomes more challenging, costs rise, and development velocity slows.
+
+Proposal
+Since 2016, Overclock Labs has fully borne the cost of development and support of Akash Network. Overclock Labs continues to fund most of these costs today and will continue to bear significant portions of the administrative, development, and marketing costs. Today, Overclock Labs is asking the community to help fund the development and testing efforts associated with the migration of Akash Network to COSMOS SDK v0.47.
+
+Responsibilities & Requirements
+Commit time and resources towards development, integration, and ongoing maintenance of COSMOS SDK v0.47 and its customizations for Akash Network
+Provide support and code management to the community
+Provide responsible and open reporting on the conversion of AKT to USD
+Builds tools necessary for the maintenance and support of COSMOS SDK v0.47 for Akash Network
+Possess deep, proven knowledge of the Akash Network codebase, which covers development work under these primary repositories
+Node: http://github.com/akash-network/node
+Provider: http://github.com/akash-network/provider
+Akash-Api: http://github.com/akash-network/akash-api
+Possess extensive open-source development experience on the Akash Network code base
+Should have extensive experience managing the community.
+Should be publicly known and respected within the Akash Community.
+Should have contributed to the Akash open-source repositories.
+Supplementing Overclock Labs’ treasury expenditures and Akash Network’s development efforts will help support more open-source contributors like zJ, Shimpa, HoomanDigital, and others and accelerate Akash Networks’ efforts to achieve cloud parity.
+
+Budget
+For Q4 2024, Overclock Labs will request $377,196.13. This represents approximately 52% of this project’s total cost of $726,814.22. This proposal covers work started on April 9, 2024 through the end of the testnet, estimated to be, September 27, 2024. Overclock Labs pays the remaining 48%. This percentage breakout is an aggregation of personnel multiplied by the amount of time spent on this effort vs other efforts. For example, the core engineering team may work on this project 75% of the time and other efforts 25% of the time.
+
+Limited Market Impact & Transparent Reporting
+Limited Market Impact
+Overclock Labs will custody the requested funds in a new, distinct wallet so that funds from any other source are not commingled.
+
+All funds will be liquidated and managed in a manner that ensures minimal impact on the market. These funds will be managed with the same care and attention as all previous Community Funding Proposals with liquidations done in a fashion that will not adversely affect the market. In practice, the effort of this liquidation will add depth to the AKT market for buyers looking to enter.
+
+- Workload Log Forwarding via Akash Console (estimated to be complete march 15th)
+
+
+Motivation
+Customers need to be able to debug issues that occur with their deployments. In the absense of log forwarding, customers can only view limited logs in Console and the logs are lost when the lease closes
+
+Summary
+Users of Akash Console will have the option to configure log forwarding on any deployment within their account. Doing so will forward logs from the container(s) within that deployment to an external logging service where the logs can be viewed and queried. The initial set of external logging service providers supported will be Datadog & Grafana with others added over time. The log forwarder configuration itself will involve specifying API key and secret for the specific logging service (that the user will set up and pay for directly with the said logging service provider). The log forwarding function will likely be achieved using a sidecar container that will authenticate and communicate with the main deployment containers — this part will be handled seamlessly for the user.
+
+
+- Unified Akash Integration API (estimated completion in 15th of march)
+
+
+Motivation
+Integrations are a key part of Akash’s growth strategy. In order for integrations to happen quicker Akash needs first class API support, coupled with easy to follow documentation and support for multiple programming languages.
+
+Summary
+While Akash has a Javascript API (AKashJS), it really is more of an SDK. Further, based on going through integrations with over a dozen partners, it is clear that folks cannot use it without handholding from the core team. The issues that users of AkashJS run into include, challenges with using the documented examples as well as not having enough examples. Akash needs a better JS API that abstracts away a lot of the underlying complexity of the blockchain and Akash specific things and is accompanies by easy to follow documentation. The story is similar for the GoLang API. Further, most API driven products offer suport for a wide range of programming languages.
+
+The goal is this AEP is to build a first class API that can be used by partners and customers in a self-serve manner. If done correctly, this would be comparable if not better that the API offered by API-first companies like stripe (https://docs.stripe.com/api).
+
+Specificaly the scope of this AEP will include
+
+Designing and implementing new interfaces that abstract a lot of the blockchain and Akash specific things as far as possible
+Implementing better error handling and reporting (HTTP response codes)
+Implementing version management
+Evaulating options for documentation (JSDocs, type-doc, Swagger, Docusaurus, Slateor others) and choosing one.
+Deciding on how to publicly display the API reference (where to put it, link it from etc)
+
+
+- Provider Notifications (estimated completion march 15th)
+
+Motivation
+Akash users would like to be notified when a provider intends to go offline for maintenance or has an outage.
+
+Summary
+Akash Provider Console should allow configuration of notification messages. Akash (Deployment)Console should allow users (tenants) to be able to subscribe to nofications from specific providers.
+
+- Realtime Pricing In Akash Console (estimated completion march 30th)
+
+
+Motivation
+New users (unfamiliar with Akash) often struggle to find provider pricing within Console and don’t realize that they need to create a deployment to see it.
+
+Summary
+A “Pricing” tab on the left side bar of Console that leads to a page where users can easily view pricing of resources for each provider on the network. Since pricing is based on the resources being requested and is dynamic based on the provider as well as based on when the request is made, the design of this page will require two things. One a selection of fixed configurations (GPU, CPU, Memory and Storage combinations) similar to “instances” in traditional clouds. And two, a mechanism for querying the network in real-time and updating the prices for those configurations from providers at that time, similar to what is done for the GPU pricing page. Lastly the user would have the option of clicking “deploy” from any of these “instance” options and that will lead to this custom container template but pre-configured with the resources matching the specific instance chosen.
+
+
+
+For quarter 2:
+- Lease control API via GRPC (estimated completion april 30th)
+
+
+Summary
+This proposal aims to implement a lease control API using Protocol Buffers (protobuf) and gRPC. The new API will enhance performance, efficiency, and maintainability by leveraging gRPC’s advanced features.
+
+Motivation
+Migrating from REST to gRPC provides several benefits that address common challenges and improve the overall performance and scalability of the API. Here are the key reasons to consider this migration:
+
+Performance: gRPC uses HTTP/2, which allows for multiplexing multiple requests over a single connection, reducing latency and improving throughput. This is particularly beneficial for high-performance applications.
+Efficiency: gRPC uses Protocol Buffers (protobuf) for serialization, which is more efficient and compact compared to JSON used in REST. This results in faster processing and reduced bandwidth usage.
+Streaming: gRPC natively supports streaming, allowing for real-time data exchange between client and server. This is useful for applications requiring continuous data flow, such as live logs or events.
+Strongly Typed Contracts: gRPC enforces a strongly typed contract between client and server through protobuf definitions. This reduces the likelihood of errors and ensures consistency across different services.
+Code Generation: gRPC provides tools to automatically generate client and server code from protobuf definitions, reducing boilerplate code and speeding up development.
+Interoperability: gRPC supports multiple programming languages, making it easier to build polyglot services and integrate with different systems.
+Error Handling: gRPC has a standardized way of handling errors, providing more detailed and structured error messages compared to REST.
+Security: gRPC supports built-in authentication and encryption mechanisms, leveraging HTTP/2 features to enhance security.
+By migrating to gRPC, we expect to achieve better performance, efficiency, and maintainability of the provider APIs, ultimately leading to a more robust and scalable system.
+
+Features
+ServiceStatus - Retrieves the status of services associated with a lease
+ServiceLogs - Retrieves the logs of services associated with a lease
+ServiceRestart - Restarts services associated with a lease
+
+
+- Standard Provider Attributes (estimtaed completion april 30th)
+
+
+Motivation
+Consistent provider attributes let clients and users be able to query and filter on them.
+
+Summary
+Akash providers set attributes manually which leads to inconsistency in the attribute naming and is error prone. Further this relies on providers being trusted to not intentionally fake attributes. In order to solve this, provider attributes should ideally be set automatically by an inventory service (that runs on the provider) that reads the capability of the provider. There will be certain attributes that will need be manually set but those should be very few (and not reflect the core capabilities of the provider that clients trust).
+
+
+- Continuous Provider Audits (estimated completion may 15th)
+
+
+Motivation
+One of the barriers to Akash adoption is giving users confidence that providers on the network can be trusted.
+
+Summary
+The scope of the effort here involves implmenting a system that can run periodic tests to audit providers and report the data back through an API which can them be consumed by clients like Console. The design for this needs to be vetted out but it will likely involve modification of the provider software to include an inventory service that reports capabilities of the provider and potenentially an agent or daemon that executes periodic tests. The design within Akash Console will likely build on the existing “up time” indicators that show up when a user clicks on the provider details page as well as reflected in the overall “score” of the provider (similar to up time)
+
+- NextGen AMD GPU support (estimated completion 15th of may)
+
+
+Motivation
+Akash providers and users would like to be able to provide and user AMD GPUs.
+
+Summary
+While Akash added support for AMD GPUs in 2024, there are indications that the support may have regressed since the Feature Discovery service was implemented. Specifically, AMD GPUs are not being labeled correctly even when added to the GPU database. The scope of this AEP is to fix this issue and to test with the latest available AMD GPUs like the MI300 to ensure that it all works asa expected.
+
+
+- Per Node Resources in Console (estimated completion may 15th)
+
+
+Motivation
+Akash users frequently receive no bids from providers even though there are enough GPUs on the provider because either there aren’t enough GPUs on a single node or there are not enough other resources (CPU, Memory, etc.) on a single node.
+
+Summary
+The solution requires some deeper thought and brainstorming but here are some initial thoughts and approaches. Note that the ideal solution is one that prevents the issue from occurring in the first place but an improvement (to the current experience) is a solution that provides information to the user about the (apparent) discrepancy and/ or prevents them from requesting bids for workloads that are not likely to get any
+
+Resources Per Node: Providing per node counts for GPUs or at least max available on any node of the provider in https://console.akash.network/providers — This would be a column called “Max requestable per deployment” or something. Alternatively, it could be a filter on the table that lets the user specify the count they intend to request and it filters and shows the providers that have >= that count available on any node.
+
+Quick Check before initiating deployment: Implementing a “Quick Check” button on the SDL builder page that the user can click, which will run a query to return if there are any providers that can meet the needs, while indicating which recommending which resource should be reduced to increase the number of bids received. Note that the reason for doing it here (rather than in the bids stage, is because the user can adjust the resources here while to do that once the deployment is created requires closing the existing deployment and starting a new one)
+
+
+- Onchain Provider Incentives (estimated completion 30th of may)
+
+Motivation
+Users want to be incentivized to provide compute resources to the network.
+
+Summary
+Currently, provider incentives are manually managed. There have been two pilots of this and they have been successful. The plan would be to build the infrastructure necessary to automate this such that a pool of funds is allocated to providers based on type of infrastructure they are providing and after verifying that they provided the resources for the period of time.
+
+
+- Trusted Execution Environment (TEE) (estimated completion june 30th)
+
+
+Summary
+Trusted Execution Environment (TEE) guarantees code and data loaded inside to be protected with respect to confidentiality and integrity that is enforced at the processor level.
+
+Motivation
+Providers execute a Tenant’s workload. Providers have physical access to the machine executing a tenant’s workload thereby can gain access to sensitive information by inspecting the memory. The unprotected access presents a challenge to secure sensitive information when running on an untrusted node.
+
+Rationale
+When we use the cloud today, AWS for example, even though AWS employees can inspect your application, we trust that AWS ensures that it won’t be the case because of brand value. Akash. [DCS-8] ensure this level of trust by means of accreditation. We can enhance that trust further by providing a Trusted Execution Environment (TEE).
+
+A TEE as an isolated execution environment provides security features such as isolated execution, the integrity of applications executing with the TEE, along with confidentiality of their assets. In general terms, the TEE offers an execution space that provides a higher level of security to tenants than a rich operating system (OS) and more functionality than a ‘secure element’ (SE).
+
+TEE is platform-dependent, all major providers have a form for TEE implementations as stated below.
+
+Hardware Support
+AMD
+Platform Security Processor
+AMD GuardMI
+ARM
+Trust Zone
+Intel
+SGX Software Guard Extensions
+RISC-V
+MultiZone™ Security Trusted Execution Environment
+IBM
+IBM Secure Service Container
+SDKs
+Ilinux-sgx: Reference implementation of a Launch Enclave for ‘Flexible Launch Control’ for Intel SGX
+linux-sgx-driver: out-of-tree driver for the Linux Intel(R) SGX software stack, which will be used until the driver upstreaming process is complete.
+
+
+- Custom Domain Configuration via Akash Console (estimated completion june 30th)
+
+
+Motivation
+Many users of Akash Console deploy apps and services that need a custom domain. Configuring the mapping from the endpoint (or port mapping) received when the lease is created requires going into a separate UI (like Cloudflare). Allowing this configuration within Console makes UX better
+
+Summary
+Users of Akash Console will have the option of choosing their DNS provider of choice from a set of available options and then configuring custom domain. Console would take care of authenticating the user (via the API credentials for the speicifc DNS provider) and settin the configuration.
+
+
+- Lease Termination Reasons (Estimated completion: 6/30/2025)
+
+
+Motivation
+Tenants are often confused by why a lease was closed and in most cases they assume it was an issue with the provider while that isn’t always the case (can be caused by funds running out or an issue with the tenant container etc)
+
+Summary
+Displaying reasons for why a lease was closed, back to the tenant
+
+
+
+- Workload Utilization Metrics (Estimated completion: 6/30/2025)
+
+
+Motivation
+Tenants/ users of Akash expect to be able to see what amount of allocated resources are being used by their workloads so that they can better manage peak load and also optimize cost/ spend
+
+Summary
+This AEP will likely require building the necessary contructs (metrics server/ agent) for collecting utilization metrics from the tenant containers and reporting them through an API that can be quried and graphed for display in clients like Console. The metrics collected initially will likely be GPU (VRAM), CPU, Memeory and Storage.
+
+
+Rollover Provider (Estimated completion: 6/30/2025)
+
+
+Motivation
+Being able to select one or more backup providers and have the deployment be redeployed to them automatically if/ when the primary provider has an issue
+
+
+Buy Back and Burn AKT(Estimated completion: 6/30/2025)
+
+
+Motivation
+Credit card transactions in USD are converted to USDC to maintain exact balance equivalence, ensuring a smooth user experience. This approach, however, reduces AKT demand, potentially compromising Akash’s security. To mitigate this, a protocol-imposed fee (Take Fee) is applied when using USDC for compute payments. AKT stakers determine this fee through governance proposals.
+
+The collected fee is used to purchase AKT from a DEX like Osmosis. A portion of the acquired AKT is burned, while the remainder is earmarked for future staker distribution, as per AKT 2.0 guidelines.
+
+This system offers advantages to all stakeholders:
+
+Users benefit from stable, friction-free credit card payments, facilitating adoption among non-crypto users.
+AKT stakers receive a portion of hosting fees, while AKT undergoes continuous burning with increased usage.
+The protocol experiences enhanced usage and adoption due to the stable payment option, attracting a broader user base and driving network growth through increased compute purchases.
+
+
+
+- Verifiable Hardware Provisioning (Estimated completion: 7/1/2025)
+
+
+Motivation
+Verification of resources is critical for on-chain incentivization; hence, we propose a TEE-based verification mechanism detailed below and extend the Trusted providers proposal.
+
+Summary
+Verifiable computing is an entire class of algorithms or systems where a particular portion of the compute stack is verifiable/provable in a trustless manner to participants within a decentralized network. Verifiable computing can take many forms, including:
+
+Verifiable provisioning of hardware: This corresponds to the case where we desire to verify the nature and extent to which a piece of hardware is provisioned for the Akash network.
+
+Specifically, if a 4090 GPU were to be incorporated in the Akash network, verifiable provisioning ensures that it indeed matches its hardware specifications, and it is genuinely allocated for functions on the Akash network.
+
+Verifiable execution of program/software: This corresponds to the case where a program (any AI program, ranging from inference to training) is correctly executed on a node/set of nodes in the Akash network. For example, that a particular piece of code was executed correctly in a cluster of 4090s on the Akash network. Verifiable execution of programs/software also comes in multiple flavors, including:
+
+Non-real-time: An offline verification mechanism that presents a proof in non-real-time, where the proof has no time or size constraints.
+Optimistic, real-time proofs: An optimistic proof mechanism that can be verified or contested in (near) real time.
+Zero knowledge, real-time proofs: A zero knowledge proof mechanism (that does not reveal anything about the inputs but can still be verified) in (near) real time.
+In this proposal, for the first year of this project, we focus on only the first type of verifiability: That of provisioning of hardware. After the completion of this first portion of the project, a further proposal will be submitted on non-real-time and subsequently, real-time verifiable computing within the Akash network. Please review the discussions on Github here (https://github.com/orgs/akash-network/discussions/614).
+
+Benefits to Akash Network
+The need for verifiable provisioning of hardware is significant for a variety of reasons, including the elimination/reduction of Sybil attacks, and of other forms of misrepresentation and abuse in the network.
+
+Verifiable Hardware Provisioning
+Verifiable hardware provisioning can be achieved in a variety of ways: by using schemes uniquely associated with particular types of hardware, by using access patterns and footprints associated with a particular make and model, and other ways. However, these schemes are dependent on hardware configurations and do not necessarily generalize well. In order to develop a scalable, universal solution, we take a trusted enclave (trusted execution environment) approach as follows:
+
+Akash providers that intend to be “hardware verifiable” are equipped with a TEE, configured by Akash (such as Trusty [1], for more information on TEE, see tutorial [2]). Such a TEE contains a physically unclonable function (a PUF, see [3]) that can securely sign transactions. To ensure uniformity, this TEE will be designed to be a USB A/C dongle that can be attached to any hardware configuration.
+
+We will verify that the USB A/C dongle can be attached to any hardware configuration and provide a detailed set of instructions to install and use this dongle to enable each provider to become “hardware verifiable” on Akash.
+
+This TEE will periodically perform the following two tasks, based on an internal pseudo-random timer:
+
+Identification task
+Following a pseudo-random clock, the TEE will query every GPU in the specific Akash provider on its status and device-level details.
+
+Provisioning task
+Periodically and randomly, a random machine learning task will be assigned to the GPUs within this provider. These provisioning tasks are based on existing, well-known benchmarks on the performance of GPUs to certain deep learning tasks, including particular types of models [4], more general deep learning models [5] and other tasks that are well-known benchmarks on existing GPUs [6].
+
+After the conclusion of each type of pseudorandomly repeated task, the TEE will securely sign the message, and will share the secure message with the Akash network.
+
+The tasks are used to ensure the following properties:
+
+Identification task
+The identification task sets up the base configuration for each GPU cluster, and assigns a unique signature associated with the TEE with that cluster. As the identification is performed at the operating system level, it can potentially be spoofed, and therefore, the provisioning/benchmarking tasks are required.
+
+Provisioning task
+The provisioning/benchmarking tasks verify the identification while simultaneously ensuring that the associated GPUs are dedicated to the Akash network and are not prioritizing other tasks. In case they are not provisioned for the Akash network, they will fail the provisioning task.
+
+A key point is that both the entire system (user, operating system) cannot differentiate between a provisioning/benchmarking task and a regular AI workload provided by the Akash network, and therefore cannot selectively serve a particular type of workload/task. This ensures that the GPUs are both correctly identified and are made available to Akash network-centric tasks at all times.
+
+Implementation
+With provider service installaiton comes Feature Discovery Service (FDS) which hands inventory information to the provider engine. The FDS functionality will be extended to snapshot information below which further will be signed by the provider and placed to the DA:
+
+CPU
+cpu id
+architecture
+model
+vendor
+micro-architecture levels
+features
+GPU
+gpu id
+vendor (already implemented)
+model (already implemented)
+memory size (already implemented)
+interface (already implemented)
+Memory
+vendor
+negotiated speed
+timings
+serial number
+Storage
+Workflow
+For provider to be verified it must:
+
+commit first snapshot of resources upon commissioning to the network
+allow Auditor to inspect hardware
+commit snapshots:
+whenever there is change to the hardware due to expansion, maintenance
+when challenged by the Auditor (workflow TBD)
+
+
+- Provider Content Moderation (Estimated completion: 7/30/2025)
+
+
+Motivation
+Providers need to protect themselves and their company/ brand from being tarnished
+
+Summary
+Akash Provider Console will build tools necessary for providers to be able to prevent workloads and applications that violate their policies from being run on their infrastructure. This will include some combination of a community sourced database of known offensive applications by region that can be modified by providers for their own specific needs along with software and UI elements to configure the provider to check against that database.
+
+
+Offchain Compute Inventory (Estimated completion: 11/30/2025)
+
+
+Motivation
+Show users what compute inventory could be brought on to the network if there was demand with the intention of attracting larger customers and training workloads who may be turned off by the limited number of available GPUs, particularly as demand increases.
+
+Summary
+This would require gathering inventory from existing providers of compute that hasn’t yet been brought on to Akash. The inventory should ideally be updated through an API but could potentially be done manually by the providers as well.
+
+
+Secrets Management (Estimated completion: 11/30/2025)
+
+
+Summary
+Users want to manage secrets for their applications in a secure and easy way. Secrets management in a decentralized cloud environment presents unique challenges compared to traditional centralized systems.
+
+This AEP will be extended via Github discussion and updated with the results and further details.
+
+
+
+Workload Logs on Decentralized Storage(Estimated completion: 12/30/2025)
+
+
+Motivation
+Being able to store logs on Akash (or other decentralized storage) reduces cost for customers
+
+Summary
+While AEP-34 will address the pressing need for tenant/ workload logs it will do so by utilizing centralized logging setvices provided as SaaS. The scope of this AEP is to find a way to store logs relatively inexpensively on Akash or dedicated decentralized storage networks (like StorJ or Filecoin) while ensuring that the Akash user experience does not suffer significantly in doing so.
+
+
+Long Standing Orders(Estimated completion: 12/31/2025)
+
+
+Motivation
+In times of peak demand some users aren’t able to get the resources they need and must repeatedly keep trying. Allowing users to have orders that remain until fulfilled (similar to a trading platform) would improve the user experience for such users
 

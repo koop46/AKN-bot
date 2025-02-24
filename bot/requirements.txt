@@ -1,0 +1,5 @@
+
+openai==1.62.0
+tweepy==4.15.0
+schedule==1.2.2
+PyYAML==6.0.2
