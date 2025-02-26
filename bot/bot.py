@@ -4,13 +4,14 @@ import time
 import openai
 import yaml
 import random
+from tags import ai_hashtags, dev_hashtags
 
 CREDS = yaml.load(open("credentials.yml"), Loader=yaml.FullLoader)
 
 with open("Akash_info.txt", "r", encoding="utf-8") as file:
     AKASH_INFO = file.read()
 
-with open("old_posts.txt", "r") as file:
+with open("old_posts.txt", "r", encoding='utf-8') as file:
     old_posts = file.read()
 
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### 
@@ -26,24 +27,38 @@ class ContentGenerator:
             base_url="https://chatapi.akash.network/api/v1"
         )
     
+    def verify_length(self, prompt):
+            response = self.llm_client.chat.completions.create(
+            model="Meta-Llama-3-3-70B-Instruct",
+
+            messages=[{"role": "user", "content": f"Verify that this text is below 280 characters: {prompt}. if it exceeds 280 characters edit it to be less than 280 characters. Edit as little as possible, leave as intact as you can. Only return answer without quotations"}],
+            temperature=0.7,
+            max_tokens=2800
+            )
+
+            output = response.choices[0].message.content.strip()
+            print(output)
+
+            return output
+
 
     def generate_tweet(self, model_choice, theme=AKASH_INFO):
         random_line = random.randint(10_000, 55_000)
-#Developers building on decentralized clouds need persistent data storage that survives migrations. Akash Network�s Persistent Storage locks deployment data through lease cycles�while $SPICE fuels $AKT�s staking engine to scale network capacity. Build relentlessly. $SPICE $AKT
 
         prompt = f"""
         Generate a Twitter post based on following information: {theme}. 
 The post must feature:  
 1. Features 1 UNIQUE technical fact/statistic (verified by credible sources)  
+I suggest something from {AKASH_INFO[random_line:random_line+1000]} that you haven't already posted about.
 2. Highlights a specific user need/pain point in tech/AI/development fields  
 3. Shows how Akash Network's decentralized cloud uniquely solves this  
-4. Includes $SPICE and $AKT with 2 synergistic hashtags from:  
-[AI/ML cluster] OR [Dev/Engineering cluster] OR [Emerging Tech cluster] 
-5. Start each post with a unique phrase that you didn't start with in older posts like: {old_posts} 
-I suggest something from {AKASH_INFO[random_line:random_line+200]} that you haven't already posted about.
+4. Includes $SPICE and $AKT with 2 synergistic hashtags from {ai_hashtags, dev_hashtags}:  
+[AI/ML cluster] OR [Dev/Engineering cluster] OR [Emerging Tech cluster].
+5. Start each post with a unique phrase. Here's an example of posts with phrases you have used before that you must avoid: {old_posts}
+6. Keep amount of characters in post to less than 280 characters.
 
 AVOID:  
-- Using same opening phrase as in older posts, for reference check: {old_posts}  
+- Using same opening phrase as in older posts.  
 - Using same first word in your new post that you have already used in older posts
 - Using any derivative of first word in your new post that you have already used in older posts
 - Price speculation/ROI claims  
@@ -53,23 +68,25 @@ TONE: Visionary architect revealing blueprints for next-gen tech infrastructure
 FORMULA:  
 [Attention-grabbing fact or common values] + [User-centric problem statement] + [Akash-powered solution] + [Future-looking call to action] + $SPICE $AKT + [2 focused hashtags]  
 
+Vary in theme/topic
+
 Verify technical accuracy before finalizing.
-Don't use same first word or any derivative of first word that you have already used in any other old post.
-Don't use same first word or any derivative of first word that you have already used in any other old post.
-Don't use same first word or any derivative of first word that you have already used in any other old post.
-Don't use same first word or any derivative of first word that you have already used in any other old post.
-Don't use same first word or any derivative of first word that you have already used in any other old post.
-Don't use same first word or any derivative of first word that you have already used in any other old post.
-Don't use same first word or any derivative of first word that you have already used in any other old post.
-Don't use same first word or any derivative of first word that you have already used in any other old post.
-Don't use same first word or any derivative of first word that you have already used in any other old post.
+Don't use same first word or any derivative of first word that you have already used in any other old post. Your post should not exceed 280 characters in length!
+Don't use same first word or any derivative of first word that you have already used in any other old post. Your post should not exceed 280 characters in length!
+Don't use same first word or any derivative of first word that you have already used in any other old post. Your post should not exceed 280 characters in length!
+Don't use same first word or any derivative of first word that you have already used in any other old post. Your post should not exceed 280 characters in length!
+Don't use same first word or any derivative of first word that you have already used in any other old post. Your post should not exceed 280 characters in length!
+Don't use same first word or any derivative of first word that you have already used in any other old post. Your post should not exceed 280 characters in length!
+Don't use same first word or any derivative of first word that you have already used in any other old post. Your post should not exceed 280 characters in length!
+Don't use same first word or any derivative of first word that you have already used in any other old post. Your post should not exceed 280 characters in length!
+Don't use same first word or any derivative of first word that you have already used in any other old post. Your post should not exceed 280 characters in length!
 
         """
 
         try:
             response = self.llm_client.chat.completions.create(
                 model=model_choice,
-                messages=[{"role": "user", "content": f"{prompt}. Only return answer without quotations and vary in theme/topic"}],
+                messages=[{"role": "user", "content": f"{prompt}. Only return answer without quotations"}],
                 temperature=0.7,
                 max_tokens=2800
             )
@@ -79,10 +96,9 @@ Don't use same first word or any derivative of first word that you have already 
             if model_choice == "DeepSeek-R1":
                 _, output = output.split("</think>\n") 
             
-            with open("old_posts.txt", "a") as file:
+            with open("old_posts.txt", "a", encoding='utf-8') as file:
                 file.write(f"\n{output}")
             
-         #   print("random line", AKASH_INFO[random_line:random_line+2000])
             return output
 
         except Exception as e:
@@ -129,13 +145,12 @@ def daily_post():
 
 #    tweet = generator.generate_tweet(all_models[1])
     for model in all_models:
-        tweet = generator.generate_tweet(model)
+        draft = generator.generate_tweet(model)
 
-        if tweet != None:
+        if draft != None:
             break
-    print(tweet)
-    
-    client.post_tweet(tweet)
+    post = generator.verify_length(draft)
+    client.post_tweet(post)
     
 
 def generate_random_hours(n=5):
@@ -149,21 +164,28 @@ def schedule_daily_events():
     for hour in random_hours:
         schedule.every().day.at(hour).do(daily_post)
 
-
+# ### Test: 5 in a row
+# for test in range(5):
+#     daily_post()
+#     print("------------")
 
 
 # Schedule the random hour generation at midnight
-schedule.every().day.at("02:00").do(schedule_daily_events)
+schedule.every().day.at("00:00").do(schedule_daily_events)
 
 # Initial setup
 schedule_daily_events()
+
+print("Creating first post...")
+daily_post()
+
 
 # Run Continuously
 while True:
 
     schedule.run_pending()
-    print("Active!!!")
     time.sleep(60)
 
 #daily_post()
+
 
